@@ -93,10 +93,18 @@
         </resteasy:basic>
       </resteasy:binding.rest>
     </sca:reference>
+    <sca:service name="OrderServicePortType" promote="OrderComponent/OrderService">
+      <sca:interface.wsdl interface="OrderService.wsdl#wsdl.porttype(OrderServicePortType)"/>
+      <soap:binding.soap name="soap1">
+        <soap:contextMapper soapHeadersType="VALUE"/>
+        <soap:wsdl>OrderService.wsdl</soap:wsdl>
+      </soap:binding.soap>
+    </sca:service>
   </sca:composite>
   <sy:transforms>
     <transform:transform.jaxb from="java:com.redhat.brq.integration.switchyard.models.Address" to="{urn:com.redhat.brq.integration.exercise.shipment:1.0}address" contextPath="com.redhat.brq.integration.switchyard.models"/>
     <transform:transform.jaxb from="{urn:com.redhat.brq.integration.switchyard:1.0}order" to="java:com.redhat.brq.integration.switchyard.models.Order" contextPath="com.redhat.brq.integration.switchyard.models"/>
+    <transform:transform.jaxb from="{urn:com.redhat.brq.integration.switchyard:1.0}submitOrder" to="java:com.redhat.brq.integration.switchyard.models.Order" contextPath="com.redhat.brq.integration.switchyard.models"/>
   </sy:transforms>
   <sy:domain>
     <sy:properties load="service.properties">
