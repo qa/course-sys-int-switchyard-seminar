@@ -21,7 +21,8 @@ public class OrderServiceBean implements OrderService {
     @Inject
     private ReferenceInvoker shipmentService;
 
-    // TODO (step1) inject reference
+    @Reference
+    @Inject
     private OrderStatusService storageService;
 
     // TODO (step4) inject reference AccountingService
@@ -37,7 +38,7 @@ public class OrderServiceBean implements OrderService {
         storageService.save(status);
 
         try {
-            //TODO (step3) invoke inventoryService with property orderId
+            // TODO (step3) invoke inventoryService with property orderId
 
             /* TODO (step2) uncomment
             shipmentService.newInvocation().setProperty("orderId", Long.toString(order.getId())).invoke(order.getAddress());
