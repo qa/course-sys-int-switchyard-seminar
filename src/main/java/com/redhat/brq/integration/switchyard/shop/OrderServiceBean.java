@@ -1,5 +1,7 @@
 package com.redhat.brq.integration.switchyard.shop;
 
+import com.redhat.brq.integration.switchyard.accounting.AccountingService;
+import com.redhat.brq.integration.switchyard.models.InvoiceIssueReply;
 import com.redhat.brq.integration.switchyard.models.Order;
 import com.redhat.brq.integration.switchyard.models.OrderItem;
 import com.redhat.brq.integration.switchyard.models.Status;
@@ -25,16 +27,16 @@ public class OrderServiceBean implements OrderService {
     @Inject
     private OrderStatusService storageService;
 
-    // TODO (step4) inject reference AccountingService
+    @Reference
+    @Inject
+    private AccountingService accountingService;
 
     @Override
     public String submitOrder(Order order) {
         Status status = new Status(order);
-        /* TODO (step4) uncomment
         InvoiceIssueReply invoice = accountingService.account(order);
         status.setInvoiceId(invoice.getInvoiceId());
         status.setInvoice(invoice.getStatus());
-        */
         storageService.save(status);
 
         try {
