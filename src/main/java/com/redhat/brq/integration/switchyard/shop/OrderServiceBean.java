@@ -34,9 +34,9 @@ public class OrderServiceBean implements OrderService {
     @Override
     public String submitOrder(Order order) {
         Status status = new Status(order);
-        InvoiceIssueReply invoice = accountingService.account(order);
-        status.setInvoiceId(invoice.getInvoiceId());
-        status.setInvoice(invoice.getStatus());
+//        InvoiceIssueReply invoice = accountingService.account(order);
+//        status.setInvoiceId(invoice.getInvoiceId());
+//        status.setInvoice(invoice.getStatus());
         storageService.save(status);
 
         try {
