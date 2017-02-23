@@ -1,0 +1,10 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"/>
+   <soap:Body>
+      <submitOrderResponse xmlns="urn:switchyard-seminar:1.0">
+         <orderAck>
+            <orderId>1</orderId>
+         </orderAck>
+      </submitOrderResponse>
+   </soap:Body>
+</soap:Envelope>

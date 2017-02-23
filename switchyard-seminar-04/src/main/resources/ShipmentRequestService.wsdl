@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ShipmentRequestService" targetNamespace="urn:switchyard-seminar:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:switchyard-seminar:1.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:switchyard-seminar:1.0" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:switchyard-seminar:1.0">
+  <xs:element name="address" type="tns:address"/>
+  <xs:complexType name="address">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="street" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="deliver" type="tns:deliver"/>
+  <xs:complexType name="deliver">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="address" type="tns:address"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deliver">
+    <wsdl:part name="parameters" element="tns:deliver">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ShipmentRequestServicePortType">
+    <wsdl:operation name="deliver">
+      <wsdl:input name="deliver" message="tns:deliver">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ShipmentRequestServiceSoapBinding" type="tns:ShipmentRequestServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="deliver">
+      <soap:operation soapAction="deliver" style="document"/>
+      <wsdl:input name="deliver">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ShipmentRequestService">
+    <wsdl:port name="ShipmentRequestServicePort" binding="tns:ShipmentRequestServiceSoapBinding">
+      <soap:address location="http://localhost:8080/switchyard-seminar/ShipmentRequestService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
