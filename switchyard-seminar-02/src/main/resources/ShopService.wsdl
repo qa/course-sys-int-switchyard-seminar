@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ShopService" targetNamespace="urn:switchyard-seminar:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:switchyard-seminar:1.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:switchyard-seminar:1.0" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:switchyard-seminar:1.0">
+  <xs:element name="address" type="tns:address"/>
+  <xs:element name="item" type="tns:orderItem"/>
+  <xs:complexType name="order">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:address"/>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:item"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="address">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="street" type="xs:string"/>
+      <xs:element minOccurs="0" name="city" type="xs:string"/>
+      <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="orderItem">
+    <xs:sequence>
+      <xs:element name="articleId" type="xs:long"/>
+      <xs:element name="count" type="xs:int"/>
+      <xs:element name="unitPrice" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="submitOrder" type="tns:submitOrder"/>
+  <xs:complexType name="submitOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="order" type="tns:order"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="submitOrderResponse" type="tns:submitOrderResponse"/>
+  <xs:complexType name="submitOrderResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="string" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="submitOrder">
+    <wsdl:part name="parameters" element="tns:submitOrder">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part name="Exception" element="tns:Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitOrderResponse">
+    <wsdl:part name="parameters" element="tns:submitOrderResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ShopServicePortType">
+    <wsdl:operation name="submitOrder">
+      <wsdl:input name="submitOrder" message="tns:submitOrder">
+    </wsdl:input>
+      <wsdl:output name="submitOrderResponse" message="tns:submitOrderResponse">
+    </wsdl:output>
+      <wsdl:fault name="Exception" message="tns:Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ShopServiceSoapBinding" type="tns:ShopServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="submitOrder">
+      <soap:operation soapAction="submitOrder" style="document"/>
+      <wsdl:input name="submitOrder">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="submitOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ShopService">
+    <wsdl:port name="ShopServicePort" binding="tns:ShopServiceSoapBinding">
+      <soap:address location="http://localhost:8080/switchyard-seminar/ShopService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
